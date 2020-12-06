@@ -23,6 +23,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [searchNavCon, favoritesNavCon]
         
+        UITabBar.appearance().tintColor = .systemGreen
+        UINavigationBar.appearance().tintColor = .systemGreen
+        
         window = UIWindow(frame: scene.coordinateSpace.bounds)
         window?.windowScene = scene
         window?.rootViewController = tabBarController

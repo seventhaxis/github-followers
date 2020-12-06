@@ -16,6 +16,13 @@ enum GFTextFieldType {
             return "Enter Username"
         }
     }
+    
+    var returnKeyType: UIReturnKeyType {
+        switch self {
+        default:
+            return .go
+        }
+    }
 }
 
 final class GFTextField: UITextField {
@@ -50,6 +57,8 @@ final class GFTextField: UITextField {
         translatesAutoresizingMaskIntoConstraints = false
         placeholder = type.placeholderText
         autocorrectionType = .no
+        autocapitalizationType = .none
+        returnKeyType = type.returnKeyType
         
         backgroundColor = ViewMetrics.backgroundColor
         

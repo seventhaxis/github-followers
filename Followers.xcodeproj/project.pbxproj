@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B9DAF421257BBEAF00656075 /* GFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DAF420257BBEAF00656075 /* GFButton.swift */; };
 		B9DAF424257BC16A00656075 /* GFTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DAF423257BC16A00656075 /* GFTextField.swift */; };
+		B9DAF428257BFDE300656075 /* FollowerListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DAF427257BFDE300656075 /* FollowerListVC.swift */; };
 		B9E4FD592573BB980033F7FE /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E4FD582573BB980033F7FE /* SearchVC.swift */; };
 		B9E4FD612573BBFB0033F7FE /* FavoritesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E4FD602573BBFB0033F7FE /* FavoritesListVC.swift */; };
 		B9E4FD662573C1FC0033F7FE /* AppTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E4FD652573C1FC0033F7FE /* AppTab.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		B9DAF420257BBEAF00656075 /* GFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFButton.swift; sourceTree = "<group>"; };
 		B9DAF423257BC16A00656075 /* GFTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFTextField.swift; sourceTree = "<group>"; };
+		B9DAF427257BFDE300656075 /* FollowerListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerListVC.swift; sourceTree = "<group>"; };
 		B9E4FD582573BB980033F7FE /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		B9E4FD602573BBFB0033F7FE /* FavoritesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListVC.swift; sourceTree = "<group>"; };
 		B9E4FD652573C1FC0033F7FE /* AppTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTab.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				B9E4FD582573BB980033F7FE /* SearchVC.swift */,
+				B9DAF427257BFDE300656075 /* FollowerListVC.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 				B9F87FA4256E2A3B004177D3 /* AppDelegate.swift in Sources */,
 				B9E4FD612573BBFB0033F7FE /* FavoritesListVC.swift in Sources */,
 				B9F87FA6256E2A3B004177D3 /* SceneDelegate.swift in Sources */,
+				B9DAF428257BFDE300656075 /* FollowerListVC.swift in Sources */,
 				B9DAF424257BC16A00656075 /* GFTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

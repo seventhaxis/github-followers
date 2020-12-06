@@ -23,9 +23,9 @@ enum AppTab: String {
     private var rootViewController: UIViewController {
         switch self {
         case .search:
-            return SearchViewController()
+            return SearchVC()
         case .favorites:
-            return FavoritesListViewController()
+            return FavoritesListVC()
         }
     }
     
