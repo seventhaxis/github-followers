@@ -53,7 +53,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B9DAF42E257E76C500656075 /* Miscellaneous */ = {
+		B9DAF42E257E76C500656075 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
 				B9E4FD652573C1FC0033F7FE /* GFAppTabs.swift */,
@@ -62,7 +62,7 @@
 				B9DAF423257BC16A00656075 /* GFTextField.swift */,
 				B9DAF42A257D542600656075 /* GFTitleLabel.swift */,
 			);
-			path = Miscellaneous;
+			path = Misc;
 			sourceTree = "<group>";
 		};
 		B9DAF435257E779D00656075 /* Alert */ = {
@@ -86,7 +86,7 @@
 			children = (
 				B9DAF435257E779D00656075 /* Alert */,
 				B9E4FD5F2573BBE90033F7FE /* Favorites */,
-				B9DAF42E257E76C500656075 /* Miscellaneous */,
+				B9DAF42E257E76C500656075 /* Misc */,
 				B9E4FD5D2573BBC20033F7FE /* Search */,
 			);
 			path = Classes;
