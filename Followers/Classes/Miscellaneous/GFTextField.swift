@@ -25,7 +25,7 @@ enum GFTextFieldType {
     }
 }
 
-final class GFTextField: UITextField {
+class GFTextField: UITextField {
     
     private enum ViewMetrics {
         static let backgroundColor = UIColor.tertiarySystemBackground
@@ -73,5 +73,10 @@ final class GFTextField: UITextField {
         layer.cornerRadius = ViewMetrics.cornerRadius
         layer.borderWidth = ViewMetrics.borderWidth
         layer.borderColor = ViewMetrics.borderColor
+    }
+    
+    var passesValidation: Bool {
+        guard let userEntry = text else { return false }
+        return !userEntry.isEmpty && userEntry != ""
     }
 }

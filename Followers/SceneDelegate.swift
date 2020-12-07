@@ -17,8 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
         
-        let searchNavCon = AppTab.search.navigationController
-        let favoritesNavCon = AppTab.favorites.navigationController
+        let searchNavCon = GFAppTabs.search.navigationController
+        let favoritesNavCon = GFAppTabs.favorites.navigationController
         
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [searchNavCon, favoritesNavCon]

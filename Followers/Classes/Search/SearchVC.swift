@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchVC: UIViewController {
+final class SearchVC: UIViewController {
     
     private enum ViewMetrics {
         static let backgroundColor = UIColor.systemBackground
@@ -65,7 +65,11 @@ class SearchVC: UIViewController {
 
 private extension SearchVC {
     @objc func tapSearchButton() {
-        guard let userEntry = usernameTextField.text else { return }
+        guard usernameTextField.passesValidation, let userEntry = usernameTextField.text else {
+            presentGFAlert(title: "Username Required", message: "Please enter a valid GitHub username to search for.", buttonTitle: "OK")
+            return
+        }
+        
         let followersVC = FollowerListVC(user: userEntry)
         navigationController?.pushViewController(followersVC, animated: true)
     }
@@ -73,7 +77,12 @@ private extension SearchVC {
 
 extension SearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let userEntry = textField.text else { return false }
+        guard let gfTextField = textField as? GFTextField, gfTextField.passesValidation, let userEntry = gfTextField.text else {
+            presentGFAlert(title: "Username Required", message: "Please enter a valid GitHub username to search for.", buttonTitle: "OK")
+            return false
+        }
+        
+        print("Searching for: \(userEntry)")
         let followersVC = FollowerListVC(user: userEntry)
         navigationController?.pushViewController(followersVC, animated: true)
         return true

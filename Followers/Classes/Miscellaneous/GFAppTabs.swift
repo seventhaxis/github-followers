@@ -1,5 +1,5 @@
 //
-//  AppTabs.swift
+//  GFAppTabs.swift
 //  Followers
 //
 //  Created by Matt Brown on 11/29/20.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum AppTab: String {
+enum GFAppTabs: String {
     case search = "Search"
     case favorites = "Favorites"
     

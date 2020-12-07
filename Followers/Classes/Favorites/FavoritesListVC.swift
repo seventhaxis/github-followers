@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FavoritesListVC: UIViewController {
+final class FavoritesListVC: UIViewController {
     
     private enum ViewMetrics {
         static let backgroundColor = UIColor.systemBlue
