@@ -27,6 +27,20 @@ final class FollowerListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        NetworkManager.shared.getFollowers(for: targetUser, page: 1) { [weak self] followers, error in
+            if let error = error {
+                self?.presentGFAlert(title: "Uh Oh", message: error, buttonTitle: "OK")
+                return
+            }
+            
+            guard let followers = followers else {
+                self?.presentGFAlert(title: "Uh Oh", message: "User has no followers.", buttonTitle: "OK")
+                return
+            }
+            
+            print("Followers: " + followers.count.description)
+            followers.forEach { print($0.username) }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
