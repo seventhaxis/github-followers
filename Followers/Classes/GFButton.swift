@@ -31,7 +31,7 @@ class GFButton: UIButton {
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
         
-        titleLabel?.textColor = ViewMetrics.textColor
+        setTitleColor(ViewMetrics.textColor, for: .normal)
         titleLabel?.font = ViewMetrics.preferredFont
         
         layer.cornerRadius = ViewMetrics.cornerRadius
