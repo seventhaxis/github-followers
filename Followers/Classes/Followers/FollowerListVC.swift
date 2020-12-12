@@ -14,7 +14,7 @@ final class FollowerListVC: UIViewController {
         static let collectionViewBackgroundColor = UIColor.systemBackground
         static let collectionViewEdgeInsets = UIEdgeInsets(top: 12.0, left: 12.0, bottom: 12.0, right: 12.0)
         static let collectionViewMinimumItemSpacing: CGFloat = 10.0
-        static let collectionViewExtraVerticalSpace: CGFloat = 40.0
+        static let collectionViewExtraVerticalSpace: CGFloat = 30.0
     }
     
     private enum Section {
@@ -40,7 +40,7 @@ final class FollowerListVC: UIViewController {
         super.viewDidLoad()
         setupView()
         
-        NetworkManager.shared.getFollowers(for: targetUser, page: 1) { [weak self] result in
+        NetworkManager.shared.getFollowers(for: targetUser, page: 1) { [weak self] (result) in
             switch result {
             case .success(let followers):
                 self?.followers = followers

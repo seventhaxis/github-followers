@@ -44,5 +44,6 @@ final class FollowerCell: UICollectionViewCell, ReusableIdentifier {
     
     func configure(for follower: Follower) {
         usernameLabel.text = follower.username
+        avatarImageView.downloadAvatar(from: follower.avatarURL)
     }
 }

@@ -5,13 +5,14 @@
 //  Created by Matt Brown on 12/7/20.
 //
 
-import Foundation
+import UIKit
 
 final class NetworkManager {
     private init() { }
     static let shared = NetworkManager()
     
-    let baseURL = "https://api.github.com"
+    let cache = NSCache<NSString, UIImage>()
+    private let baseURL = "https://api.github.com"
     
     func getFollowers(for username: String, page: Int, completion: @escaping (Result<[Follower], GFError>) -> Void) {
         let endpoint = baseURL + "/users/\(username)/followers?per_page=100&page=\(page)"
@@ -20,7 +21,7 @@ final class NetworkManager {
             return
         }
         
-        let task = URLSession.shared.dataTask(with: targetURL) { data, response, error in
+        let task = URLSession.shared.dataTask(with: targetURL) { (data, response, error) in
             if let _ = error {
                 completion(.failure(.incompleteRequest))
                 return
@@ -45,7 +46,6 @@ final class NetworkManager {
                 completion(.failure(.unableToDecodeData))
             }
         }
-        
         task.resume()
     }
 }
