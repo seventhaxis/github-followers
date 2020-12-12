@@ -8,7 +8,6 @@
 import UIKit
 
 class GFButton: UIButton {
-    
     private enum ViewMetrics {
         static let textColor = UIColor.white
         static let preferredFont = UIFont.preferredFont(forTextStyle: .headline)

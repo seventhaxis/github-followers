@@ -8,7 +8,6 @@
 import UIKit
 
 final class GFAlertVC: UIViewController {
-    
     private enum ViewMetrics {
         static let transparentBackgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.75)
         static let buttonBackgroundColor = UIColor.systemPink

@@ -26,7 +26,6 @@ enum GFTextFieldType {
 }
 
 class GFTextField: UITextField {
-    
     private enum ViewMetrics {
         static let backgroundColor = UIColor.tertiarySystemBackground
         

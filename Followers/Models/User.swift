@@ -19,7 +19,9 @@ struct User {
     var following: Int
     var followers: Int
     var createdAt: String
-    
+}
+
+extension User: Codable {
     enum CodingKeys: String, CodingKey {
         case username = "login"
         case avatarURL = "avatar_url"
@@ -33,9 +35,7 @@ struct User {
         case followers
         case createdAt
     }
-}
-
-extension User: Codable {
+    
     init(from decoder: Decoder) throws {
         let rawValues = try decoder.container(keyedBy: CodingKeys.self)
         username = try rawValues.decode(String.self, forKey: .username)

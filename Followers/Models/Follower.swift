@@ -7,17 +7,17 @@
 
 import Foundation
 
-struct Follower {
+struct Follower: Hashable {
     var username: String
     var avatarURL: String
-    
+}
+
+extension Follower: Codable {
     enum CodingKeys: String, CodingKey {
         case username = "login"
         case avatarURL = "avatar_url"
     }
-}
-
-extension Follower: Codable {
+    
     init(from decoder: Decoder) throws {
         let rawValues = try decoder.container(keyedBy: CodingKeys.self)
         username = try rawValues.decode(String.self, forKey: .username)

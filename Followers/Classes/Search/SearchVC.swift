@@ -8,7 +8,6 @@
 import UIKit
 
 final class SearchVC: UIViewController {
-    
     private enum ViewMetrics {
         static let backgroundColor = UIColor.systemBackground
     }

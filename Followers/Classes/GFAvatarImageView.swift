@@ -8,7 +8,6 @@
 import UIKit
 
 class GFAvatarImageView: UIImageView {
-    
     private enum ViewMetrics {
         static let cornerRadius: CGFloat = 10.0
     }

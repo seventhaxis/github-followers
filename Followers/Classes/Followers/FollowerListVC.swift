@@ -8,12 +8,24 @@
 import UIKit
 
 final class FollowerListVC: UIViewController {
-    
     private enum ViewMetrics {
         static let bgColor = UIColor.systemBackground
+        
+        static let collectionViewBackgroundColor = UIColor.systemBackground
+        static let collectionViewEdgeInsets = UIEdgeInsets(top: 12.0, left: 12.0, bottom: 12.0, right: 12.0)
+        static let collectionViewMinimumItemSpacing: CGFloat = 10.0
+        static let collectionViewExtraVerticalSpace: CGFloat = 40.0
+    }
+    
+    private enum Section {
+        case primary
     }
     
     private let targetUser: String
+    private var followers = [Follower]()
+    
+    private var collectionView: UICollectionView!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
     
     init(user: String) {
         self.targetUser = user
@@ -27,11 +39,12 @@ final class FollowerListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        
         NetworkManager.shared.getFollowers(for: targetUser, page: 1) { [weak self] result in
             switch result {
             case .success(let followers):
-                print("Followers: " + followers.count.description)
-                followers.forEach { print($0.username) }
+                self?.followers = followers
+                self?.updateFollowers()
                 
             case .failure(let error):
                 self?.presentGFAlert(title: "Uh Oh", message: error.rawValue, buttonTitle: "OK")
@@ -47,7 +60,39 @@ final class FollowerListVC: UIViewController {
     private func setupView() {
         navigationItem.title = targetUser
         navigationController?.navigationBar.prefersLargeTitles = true
-        
         view.backgroundColor = ViewMetrics.bgColor
+        
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: threeColumnFlowLayout())
+        collectionView.backgroundColor = ViewMetrics.collectionViewBackgroundColor
+        collectionView.register(FollowerCell.self, forCellWithReuseIdentifier: FollowerCell.reuseIdentifier)
+        [collectionView].forEach { view.addSubview($0) }
+        
+        dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell? in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCell.reuseIdentifier, for: indexPath) as? FollowerCell else { fatalError() }
+            cell.configure(for: follower)
+            return cell
+        })
+    }
+    
+    private func updateFollowers() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Follower>()
+        snapshot.appendSections([.primary])
+        snapshot.appendItems(followers)
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.dataSource.apply(snapshot, animatingDifferences: true)
+        }
+    }
+    
+    private func threeColumnFlowLayout() -> UICollectionViewFlowLayout {
+        let sidePadding = ViewMetrics.collectionViewEdgeInsets.left + ViewMetrics.collectionViewEdgeInsets.right
+        let minItemSpacing = ViewMetrics.collectionViewMinimumItemSpacing
+        let availableWidth = view.bounds.width - sidePadding - (minItemSpacing * 2)
+        let cellWidth = availableWidth / 3
+        
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.sectionInset = ViewMetrics.collectionViewEdgeInsets
+        flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth + ViewMetrics.collectionViewExtraVerticalSpace)
+        return flowLayout
     }
 }
