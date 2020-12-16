@@ -14,8 +14,10 @@ final class NetworkManager {
     let cache = NSCache<NSString, UIImage>()
     private let baseURL = "https://api.github.com"
     
+    let followersPerPage = 99
+    
     func getFollowers(for username: String, page: Int, completion: @escaping (Result<[Follower], GFError>) -> Void) {
-        let endpoint = baseURL + "/users/\(username)/followers?per_page=100&page=\(page)"
+        let endpoint = baseURL + "/users/\(username)/followers?per_page=\(followersPerPage)&page=\(page)"
         guard let targetURL = URL(string: endpoint) else {
             completion(.failure(.invalidUsername))
             return

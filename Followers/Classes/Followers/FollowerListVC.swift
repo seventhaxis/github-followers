@@ -23,6 +23,8 @@ final class FollowerListVC: UIViewController {
     
     private let targetUser: String
     private var followers = [Follower]()
+    private var currentPage = 1
+    private var hasMoreFollowers = true
     
     private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
@@ -39,17 +41,7 @@ final class FollowerListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        
-        NetworkManager.shared.getFollowers(for: targetUser, page: 1) { [weak self] (result) in
-            switch result {
-            case .success(let followers):
-                self?.followers = followers
-                self?.updateFollowers()
-                
-            case .failure(let error):
-                self?.presentGFAlert(title: "Uh Oh", message: error.rawValue, buttonTitle: "OK")
-            }
-        }
+        fetchFollowers(for: currentPage)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,6 +55,7 @@ final class FollowerListVC: UIViewController {
         view.backgroundColor = ViewMetrics.bgColor
         
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: threeColumnFlowLayout())
+        collectionView.delegate = self
         collectionView.backgroundColor = ViewMetrics.collectionViewBackgroundColor
         collectionView.register(FollowerCell.self, forCellWithReuseIdentifier: FollowerCell.reuseIdentifier)
         [collectionView].forEach { view.addSubview($0) }
@@ -73,8 +66,26 @@ final class FollowerListVC: UIViewController {
             return cell
         })
     }
+}
+
+private extension FollowerListVC {
+    func fetchFollowers(for page: Int) {
+        NetworkManager.shared.getFollowers(for: targetUser, page: page) { [weak self] (result) in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let followers):
+                if followers.count < NetworkManager.shared.followersPerPage { self.hasMoreFollowers = false }
+                self.followers.append(contentsOf: followers)
+                self.updateFollowers()
+                
+            case .failure(let error):
+                self.presentGFAlert(title: "Uh Oh", message: error.rawValue, buttonTitle: "OK")
+            }
+        }
+    }
     
-    private func updateFollowers() {
+    func updateFollowers() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Follower>()
         snapshot.appendSections([.primary])
         snapshot.appendItems(followers)
@@ -84,7 +95,7 @@ final class FollowerListVC: UIViewController {
         }
     }
     
-    private func threeColumnFlowLayout() -> UICollectionViewFlowLayout {
+    func threeColumnFlowLayout() -> UICollectionViewFlowLayout {
         let sidePadding = ViewMetrics.collectionViewEdgeInsets.left + ViewMetrics.collectionViewEdgeInsets.right
         let minItemSpacing = ViewMetrics.collectionViewMinimumItemSpacing
         let availableWidth = view.bounds.width - sidePadding - (minItemSpacing * 2)
@@ -94,5 +105,22 @@ final class FollowerListVC: UIViewController {
         flowLayout.sectionInset = ViewMetrics.collectionViewEdgeInsets
         flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth + ViewMetrics.collectionViewExtraVerticalSpace)
         return flowLayout
+    }
+}
+
+extension FollowerListVC: UICollectionViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        scrollViewDidEndDragging(scrollView, willDecelerate: true)
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let yOffset = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let screenHeight = scrollView.frame.size.height
+        
+        if hasMoreFollowers && (yOffset > contentHeight - screenHeight) {
+            currentPage += 1
+            fetchFollowers(for: currentPage)
+        }
     }
 }

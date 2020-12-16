@@ -42,6 +42,11 @@ final class FollowerCell: UICollectionViewCell, ReusableIdentifier {
         ])
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        avatarImageView.image = avatarImageView.placeholderImage
+    }
+    
     func configure(for follower: Follower) {
         usernameLabel.text = follower.username
         avatarImageView.downloadAvatar(from: follower.avatarURL)

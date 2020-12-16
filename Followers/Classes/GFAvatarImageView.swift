@@ -12,6 +12,7 @@ class GFAvatarImageView: UIImageView {
         static let cornerRadius: CGFloat = 10.0
     }
     
+    let placeholderImage = UIImage(named: "avatar-placeholder")!
     let avatarCache = NetworkManager.shared.cache
 
     override init(frame: CGRect) {
@@ -27,7 +28,7 @@ class GFAvatarImageView: UIImageView {
         translatesAutoresizingMaskIntoConstraints = false
         clipsToBounds = true
         
-        image = UIImage(named: "avatar-placeholder")!
+        image = placeholderImage
         layer.cornerRadius = ViewMetrics.cornerRadius
     }
 }
@@ -48,7 +49,6 @@ extension GFAvatarImageView {
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { return }
             guard let data = data, let userAvatar = UIImage(data: data) else { return }
             
-            print("Downloading image for \(urlString)...")
             self.avatarCache.setObject(userAvatar, forKey: cacheKey)
             DispatchQueue.main.async { self.image = userAvatar }
         }
