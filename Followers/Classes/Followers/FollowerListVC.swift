@@ -79,6 +79,13 @@ private extension FollowerListVC {
             case .success(let followers):
                 if followers.count < NetworkManager.shared.followersPerPage { self.hasMoreFollowers = false }
                 self.followers.append(contentsOf: followers)
+                
+                if self.followers.isEmpty {
+                    let emptyMessage = "This user doesn't have any followers yet 🥺."
+                    DispatchQueue.main.async { self.showEmptyStateView(message: emptyMessage, in: self.view) }
+                    return
+                }
+                
                 self.updateFollowers()
                 
             case .failure(let error):

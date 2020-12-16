@@ -1,5 +1,5 @@
 //
-//  UIViewController+LoaadingView.swift
+//  UIViewController+LoadingView.swift
 //  Followers
 //
 //  Created by Matt Brown on 12/15/20.
