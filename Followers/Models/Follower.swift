@@ -8,8 +8,8 @@
 import Foundation
 
 struct Follower: Hashable {
-    var username: String
-    var avatarURL: String
+    let username: String
+    let avatarURL: String
 }
 
 extension Follower: Codable {
