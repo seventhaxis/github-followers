@@ -69,6 +69,7 @@ final class FollowerListVC: UIViewController {
         searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
+        navigationItem.hidesSearchBarWhenScrolling = false
         
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: threeColumnFlowLayout())
         collectionView.delegate = self
