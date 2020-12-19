@@ -81,7 +81,6 @@ extension SearchVC: UITextFieldDelegate {
             return false
         }
         
-        print("Searching for: \(userEntry)")
         let followersVC = FollowerListVC(user: userEntry)
         navigationController?.pushViewController(followersVC, animated: true)
         return true

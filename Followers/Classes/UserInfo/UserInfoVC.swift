@@ -10,16 +10,15 @@ import UIKit
 final class UserInfoVC: UIViewController {
     private enum ViewMetrics {
         static let backgroundColor = UIColor.systemBackground
-        static let directionalMargins = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
         
-        static let headerHeight: CGFloat = 180.0
+        static let headerViewHeight: CGFloat = 180.0
+        static let interItemPadding: CGFloat = 20.0
+        static let detailBoxHeight: CGFloat = 140.0
     }
     
-    private lazy var headerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let headerView = UIView.containerView()
+    private let userDetailBox1 = UIView.containerView(bgColor: .systemPink)
+    private let userDetailBox2 = UIView.containerView(bgColor: .systemGreen)
     
     private let targetUsername: String
     
@@ -52,17 +51,26 @@ final class UserInfoVC: UIViewController {
 
     private func setupView() {
         view.backgroundColor = ViewMetrics.backgroundColor
-//        view.directionalLayoutMargins = ViewMetrics.directionalMargins
         
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
         navigationItem.rightBarButtonItem = doneButton
         
-        [headerView].forEach { view.addSubview($0) }
+        [headerView, userDetailBox1, userDetailBox2].forEach { view.addSubview($0) }
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             headerView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: ViewMetrics.headerHeight),
+            headerView.heightAnchor.constraint(lessThanOrEqualToConstant: ViewMetrics.headerViewHeight),
+            
+            userDetailBox1.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: ViewMetrics.interItemPadding),
+            userDetailBox1.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            userDetailBox1.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            userDetailBox1.heightAnchor.constraint(equalToConstant: ViewMetrics.detailBoxHeight),
+            
+            userDetailBox2.topAnchor.constraint(equalTo: userDetailBox1.bottomAnchor, constant: ViewMetrics.interItemPadding),
+            userDetailBox2.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            userDetailBox2.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            userDetailBox2.heightAnchor.constraint(equalToConstant: ViewMetrics.detailBoxHeight),
         ])
     }
 }
@@ -77,5 +85,14 @@ extension UserInfoVC {
         containerView.addSubview(childViewController.view)
         childViewController.view.frame = containerView.bounds
         childViewController.didMove(toParent: self)
+    }
+}
+
+private extension UIView {
+    static func containerView(bgColor: UIColor = .clear) -> UIView {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = bgColor
+        return view
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GFTitleLabel: UILabel {
+final class GFTitleLabel: UILabel {
     private enum ViewMetrics {
         static let textColor = UIColor.label
         static let minScaleFactor: CGFloat = 0.9

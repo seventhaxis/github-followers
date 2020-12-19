@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GFBodyLabel: UILabel {
+final class GFBodyLabel: UILabel {
     private enum ViewMetrics {
         static let textColor = UIColor.secondaryLabel
         static let minScaleFactor: CGFloat = 0.75

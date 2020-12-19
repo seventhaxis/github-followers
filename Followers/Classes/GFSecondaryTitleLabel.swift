@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GFSecondaryTitleLabel: UILabel {
+final class GFSecondaryTitleLabel: UILabel {
     private enum ViewMetrics {
         static let textColor = UIColor.secondaryLabel
         static let minScaleFactor: CGFloat = 0.9
