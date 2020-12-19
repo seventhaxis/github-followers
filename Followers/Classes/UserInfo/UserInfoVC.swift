@@ -20,6 +20,8 @@ final class UserInfoVC: UIViewController {
     private let userDetailBox1 = UIView.containerView()
     private let userDetailBox2 = UIView.containerView()
     
+    private let dateLabel = GFBodyLabel(textAlignment: .center)
+    
     private let targetUsername: String
     
     init(for follower: Follower) {
@@ -42,6 +44,10 @@ final class UserInfoVC: UIViewController {
                     self.add(childViewController: UserInfoHeaderVC(user: user), to: self.headerView)
                     self.add(childViewController: UserInfoItemCardVC(.projects, for: user), to: self.userDetailBox1)
                     self.add(childViewController: UserInfoItemCardVC(.social, for: user), to: self.userDetailBox2)
+                    
+                    guard let creationDate = user.createdAt.convertedToDate else { return }
+                    let profileCreationDate = creationDate.convertToString(format: "MMM yyyy")
+                    self.dateLabel.text = "Member since \(profileCreationDate)"
                 }
             case .failure(let error):
                 self.presentGFAlert(title: "Uh Oh", message: error.rawValue, buttonTitle: "OK")
@@ -57,7 +63,7 @@ final class UserInfoVC: UIViewController {
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
         navigationItem.rightBarButtonItem = doneButton
         
-        [headerView, userDetailBox1, userDetailBox2].forEach { view.addSubview($0) }
+        [headerView, userDetailBox1, userDetailBox2, dateLabel].forEach { view.addSubview($0) }
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             headerView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
@@ -73,6 +79,9 @@ final class UserInfoVC: UIViewController {
             userDetailBox2.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             userDetailBox2.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
             userDetailBox2.heightAnchor.constraint(equalToConstant: ViewMetrics.detailBoxHeight),
+            
+            dateLabel.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
+            dateLabel.topAnchor.constraint(equalTo: userDetailBox2.bottomAnchor, constant: ViewMetrics.interItemPadding),
         ])
     }
 }
