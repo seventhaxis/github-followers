@@ -4,7 +4,7 @@
 
 - toggle the simulator between dark and light mode with **⌘⇧A** (Cmd+Shift+A)
 - configure asset to have light and dark mode versions within the _Attribute_ inspector panel
-  - **Attributes Inspector** ➡ **Appearance** ➡ **Any, Dark**
+  - **Attributes Inspector** → **Appearance** → **Any, Dark**
 - modifying the `appearance()` property of an element acts as a global configuration, affecting _all_ elements of that type with your project
 - conform to dark mode preference by using the following `UIColor` options:
   - `.systemBackground`
@@ -14,7 +14,7 @@
   - `.secondaryLabel`
   - `.tertiaryLabel`
   - `.quaternaryLabel`
-- 
+
 
 - **SemanticUI**: visualize all of iOS 13's semantic and adaptable colors, text styles, and built-in icons
   - https://github.com/cocoacontrols/SemanticUI

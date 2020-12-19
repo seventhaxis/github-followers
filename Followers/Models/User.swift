@@ -28,21 +28,21 @@ extension User: Codable {
         case name
         case location
         case bio
-        case publicRepos
-        case publicGists
+        case publicRepos = "public_repos"
+        case publicGists = "public_gists"
         case profileURL = "html_url"
         case following
         case followers
-        case createdAt
+        case createdAt = "created_at"
     }
     
     init(from decoder: Decoder) throws {
         let rawValues = try decoder.container(keyedBy: CodingKeys.self)
         username = try rawValues.decode(String.self, forKey: .username)
         avatarURL = try rawValues.decode(String.self, forKey: .avatarURL)
-        name = try rawValues.decode(String.self, forKey: .name)
-        location = try rawValues.decode(String.self, forKey: .location)
-        bio = try rawValues.decode(String.self, forKey: .bio)
+        name = try rawValues.decode(String?.self, forKey: .name)
+        location = try rawValues.decode(String?.self, forKey: .location)
+        bio = try rawValues.decode(String?.self, forKey: .bio)
         publicRepos = try rawValues.decode(Int.self, forKey: .publicRepos)
         publicGists = try rawValues.decode(Int.self, forKey: .publicGists)
         profileURL = try rawValues.decode(String.self, forKey: .profileURL)
