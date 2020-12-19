@@ -17,8 +17,8 @@ final class UserInfoVC: UIViewController {
     }
     
     private let headerView = UIView.containerView()
-    private let userDetailBox1 = UIView.containerView(bgColor: .systemPink)
-    private let userDetailBox2 = UIView.containerView(bgColor: .systemGreen)
+    private let userDetailBox1 = UIView.containerView()
+    private let userDetailBox2 = UIView.containerView()
     
     private let targetUsername: String
     
@@ -39,7 +39,9 @@ final class UserInfoVC: UIViewController {
             switch result {
             case .success(let user):
                 DispatchQueue.main.async {
-                    self.add(childViewController: GFUserInfoHeaderVC(user: user), to: self.headerView)
+                    self.add(childViewController: UserInfoHeaderVC(user: user), to: self.headerView)
+                    self.add(childViewController: UserInfoItemCardVC(.projects, for: user), to: self.userDetailBox1)
+                    self.add(childViewController: UserInfoItemCardVC(.social, for: user), to: self.userDetailBox2)
                 }
             case .failure(let error):
                 self.presentGFAlert(title: "Uh Oh", message: error.rawValue, buttonTitle: "OK")
@@ -89,10 +91,9 @@ extension UserInfoVC {
 }
 
 private extension UIView {
-    static func containerView(bgColor: UIColor = .clear) -> UIView {
+    static func containerView() -> UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = bgColor
         return view
     }
 }

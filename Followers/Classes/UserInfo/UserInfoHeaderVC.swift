@@ -1,5 +1,5 @@
 //
-//  GFUserInfoHeaderVC.swift
+//  UserInfoHeaderVC.swift
 //  Followers
 //
 //  Created by Matt Brown on 12/18/20.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class GFUserInfoHeaderVC: UIViewController {
+final class UserInfoHeaderVC: UIViewController {
     private enum ViewMetrics {
         static let usernameFontSize: CGFloat = 34.0
         static let nameFontSize: CGFloat = 18.0
