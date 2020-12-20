@@ -48,6 +48,11 @@ enum GFProfileCard {
     }
 }
 
+protocol UserInfoItemCardDelegate: AnyObject {
+    func didTapViewFollowersButton(for user: User)
+    func didTapViewProfileButton(for user: User)
+}
+
 final class UserInfoItemCardVC: UIViewController {
     private enum ViewMetrics {
         static let backgroundColor = UIColor.secondarySystemBackground
@@ -58,6 +63,8 @@ final class UserInfoItemCardVC: UIViewController {
         static let projectButtonBackgroundColor = UIColor.systemPurple
         static let socialButtonBackgroundColor = UIColor.systemGreen
     }
+    
+    weak var delegate: UserInfoItemCardDelegate?
     
     private let cardType: GFProfileCard
     private let targetUser: User
@@ -82,7 +89,11 @@ final class UserInfoItemCardVC: UIViewController {
         return stack
     }()
     
-    private lazy var actionButton = GFButton(bgColor: cardType.actionButtonBackgroundColor, title: cardType.actionButtonTitle)
+    private lazy var actionButton: GFButton = {
+        let button = GFButton(bgColor: cardType.actionButtonBackgroundColor, title: cardType.actionButtonTitle)
+        button.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     init(_ type: GFProfileCard, for user: User) {
         self.cardType = type
@@ -116,5 +127,16 @@ final class UserInfoItemCardVC: UIViewController {
             actionButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             actionButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
         ])
+    }
+}
+
+private extension UserInfoItemCardVC {
+    @objc func actionButtonTapped() {
+        switch cardType {
+        case .projects:
+            delegate?.didTapViewProfileButton(for: targetUser)
+        case .social:
+            delegate?.didTapViewFollowersButton(for: targetUser)
+        }
     }
 }

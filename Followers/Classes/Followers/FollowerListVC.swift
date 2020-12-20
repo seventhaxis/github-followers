@@ -21,7 +21,21 @@ final class FollowerListVC: UIViewController {
         case primary
     }
     
-    private let targetUser: String
+    private var targetUser: String {
+        didSet {
+            navigationItem.title = targetUser
+            currentPage = 1
+            hasMoreFollowers = true
+            isFiltered = false
+            followers.removeAll()
+            filteredFollowers.removeAll()
+            
+            updateFollowers(with: followers)
+//            collectionView.setContentOffset(.zero, animated: true)
+            fetchFollowers(page: currentPage)
+        }
+    }
+    
     private var followers = [Follower]()
     private var filteredFollowers = [Follower]()
     
@@ -53,7 +67,7 @@ final class FollowerListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        fetchFollowers(for: currentPage)
+        fetchFollowers(page: currentPage)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,7 +100,7 @@ final class FollowerListVC: UIViewController {
 }
 
 private extension FollowerListVC {
-    func fetchFollowers(for page: Int) {
+    func fetchFollowers(page: Int) {
         showLoadingView()
         NetworkManager.shared.getFollowers(for: targetUser, page: page) { [weak self] (result) in
             guard let self = self else { return }
@@ -98,7 +112,7 @@ private extension FollowerListVC {
                 self.followers.append(contentsOf: followers)
                 
                 if self.followers.isEmpty {
-                    let emptyMessage = "This user doesn't have any followers yet 🥺."
+                    let emptyMessage = "This user doesn't have any followers yet. 🥺"
                     DispatchQueue.main.async { self.showEmptyStateView(message: emptyMessage, in: self.view) }
                     return
                 }
@@ -138,6 +152,7 @@ extension FollowerListVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let follower = isFiltered ? filteredFollowers[indexPath.item] : followers[indexPath.item]
         let userInfoVC = UserInfoVC(for: follower)
+        userInfoVC.followableDelegate = self
         let navCon = UINavigationController(rootViewController: userInfoVC)
         present(navCon, animated: true)
     }
@@ -153,7 +168,7 @@ extension FollowerListVC: UICollectionViewDelegate {
         
         if hasMoreFollowers && (yOffset > contentHeight - screenHeight) {
             currentPage += 1
-            fetchFollowers(for: currentPage)
+            fetchFollowers(page: currentPage)
         }
     }
 }
@@ -169,5 +184,11 @@ extension FollowerListVC: UISearchResultsUpdating, UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         updateFollowers(with: followers)
         isFiltered = false
+    }
+}
+
+extension FollowerListVC: Followable {
+    func didRequestFollowers(for username: String) {
+        targetUser = username
     }
 }

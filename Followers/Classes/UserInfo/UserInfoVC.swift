@@ -16,13 +16,13 @@ final class UserInfoVC: UIViewController {
         static let detailBoxHeight: CGFloat = 140.0
     }
     
+    private let targetUsername: String
+    weak var followableDelegate: Followable?
+    
     private let headerView = UIView.containerView()
     private let userDetailBox1 = UIView.containerView()
     private let userDetailBox2 = UIView.containerView()
-    
     private let dateLabel = GFBodyLabel(textAlignment: .center)
-    
-    private let targetUsername: String
     
     init(for follower: Follower) {
         self.targetUsername = follower.username
@@ -40,15 +40,8 @@ final class UserInfoVC: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let user):
-                DispatchQueue.main.async {
-                    self.add(childViewController: UserInfoHeaderVC(user: user), to: self.headerView)
-                    self.add(childViewController: UserInfoItemCardVC(.projects, for: user), to: self.userDetailBox1)
-                    self.add(childViewController: UserInfoItemCardVC(.social, for: user), to: self.userDetailBox2)
-                    
-                    guard let creationDate = user.createdAt.convertedToDate else { return }
-                    let profileCreationDate = creationDate.convertToString(format: "MMM yyyy")
-                    self.dateLabel.text = "Member since \(profileCreationDate)"
-                }
+                DispatchQueue.main.async { self.configureProfileCards(for: user) }
+                
             case .failure(let error):
                 self.presentGFAlert(title: "Uh Oh", message: error.rawValue, buttonTitle: "OK")
             }
@@ -84,6 +77,22 @@ final class UserInfoVC: UIViewController {
             dateLabel.topAnchor.constraint(equalTo: userDetailBox2.bottomAnchor, constant: ViewMetrics.interItemPadding),
         ])
     }
+    
+    private func configureProfileCards(for user: User) {
+        add(childViewController: UserInfoHeaderVC(user: user), to: headerView)
+        
+        let projectCard = UserInfoItemCardVC(.projects, for: user)
+        projectCard.delegate = self
+        add(childViewController: projectCard, to: userDetailBox1)
+        
+        let socialCard = UserInfoItemCardVC(.social, for: user)
+        socialCard.delegate = self
+        add(childViewController: socialCard, to: userDetailBox2)
+        
+        guard let creationDate = user.createdAt.convertedToDate else { return }
+        let profileCreationDate = creationDate.convertToString(format: "MMM yyyy")
+        dateLabel.text = "Member since \(profileCreationDate)"
+    }
 }
 
 extension UserInfoVC {
@@ -96,6 +105,21 @@ extension UserInfoVC {
         containerView.addSubview(childViewController.view)
         childViewController.view.frame = containerView.bounds
         childViewController.didMove(toParent: self)
+    }
+}
+
+extension UserInfoVC: UserInfoItemCardDelegate {
+    func didTapViewFollowersButton(for user: User) {
+        dismiss(animated: true)
+        followableDelegate?.didRequestFollowers(for: user.username)
+    }
+    
+    func didTapViewProfileButton(for user: User) {
+        guard let url = URL(string: user.profileURL) else {
+            presentGFAlert(title: "Uh Oh", message: "Invalid profile URL for selected user: \(user.username)", buttonTitle: "OK")
+            return
+        }
+        presentSafariViewController(with: url)
     }
 }
 
