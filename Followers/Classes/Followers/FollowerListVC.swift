@@ -31,7 +31,6 @@ final class FollowerListVC: UIViewController {
             filteredFollowers.removeAll()
             
             updateFollowers(with: followers)
-//            collectionView.setContentOffset(.zero, animated: true)
             fetchFollowers(page: currentPage)
         }
     }
@@ -78,6 +77,11 @@ final class FollowerListVC: UIViewController {
     private func setupView() {
         navigationItem.title = targetUser
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        let favoriteIcon = UIImage(systemName: "star")
+        let favoriteButton = UIBarButtonItem(image: favoriteIcon, style: .plain, target: self, action: #selector(favoriteButtonTapped))
+        navigationItem.rightBarButtonItem = favoriteButton
+        
         view.backgroundColor = ViewMetrics.bgColor
         
         searchController.searchResultsUpdater = self
@@ -145,6 +149,10 @@ private extension FollowerListVC {
         flowLayout.sectionInset = ViewMetrics.collectionViewEdgeInsets
         flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth + ViewMetrics.collectionViewExtraVerticalSpace)
         return flowLayout
+    }
+    
+    @objc func favoriteButtonTapped() {
+        print("Adding \(targetUser) as a favorite search term...")
     }
 }
 
