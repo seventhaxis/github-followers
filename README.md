@@ -17,10 +17,9 @@
 
 ---
 
-- **SemanticUI**: visualize all of iOS 13's semantic and adaptable colors, text styles, and built-in icons
-  - https://github.com/cocoacontrols/SemanticUI
+- [SemanticUI](https://github.com/cocoacontrols/SemanticUI): visualize all of iOS 13's semantic and adaptable colors, text styles, and built-in icons
 - [Swift API Design Guidelines](https://swift.org/documentation/api-design-guidelines/)
-- **Human Interface Guidelines:** [Modality](https://developer.apple.com/design/human-interface-guidelines/ios/app-architecture/modality/)
+- Human Interface Guidelines: [Modality](https://developer.apple.com/design/human-interface-guidelines/ios/app-architecture/modality/)
 
 ## Retrospective
 - Throughout the course, the instructor relied on padding constants in constraints instead of setting a view's layout margins or directional insets. I feel this made for some unnecessarily complex or sloppy code.
