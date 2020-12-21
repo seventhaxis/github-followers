@@ -9,6 +9,7 @@ import UIKit
 
 final class GFEmptyStateView: UIView {
     private enum ViewMetrics {
+        static let bgColor = UIColor.systemBackground
         static let directionalLayoutMargins = NSDirectionalEdgeInsets(top: 40, leading: 40, bottom: 40, trailing: 40)
         
         static let logoImageWidthMultiplier: CGFloat = 1.3
@@ -45,6 +46,7 @@ final class GFEmptyStateView: UIView {
     }
     
     private func setupView() {
+        backgroundColor = ViewMetrics.bgColor
         directionalLayoutMargins = ViewMetrics.directionalLayoutMargins
         
         [logoImageView, messageLabel].forEach { addSubview($0) }
