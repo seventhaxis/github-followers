@@ -12,6 +12,7 @@
 		B91ECDF92582BEB5006775E1 /* GFAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91ECDF82582BEB5006775E1 /* GFAvatarImageView.swift */; };
 		B9432159258FBC5F00494CAB /* UIViewController+presentSafariVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9432158258FBC5F00494CAB /* UIViewController+presentSafariVC.swift */; };
 		B943215C258FC9F800494CAB /* Followable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B943215B258FC9F800494CAB /* Followable.swift */; };
+		B943215F25904C5B00494CAB /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B943215E25904C5B00494CAB /* PersistenceManager.swift */; };
 		B962FCFD25815879001C21A5 /* GFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B962FCFC25815879001C21A5 /* GFError.swift */; };
 		B97F842F258D5D7F00F6B22C /* UserInfoHeaderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97F842E258D5D7F00F6B22C /* UserInfoHeaderVC.swift */; };
 		B97F8433258D5E1900F6B22C /* GFSecondaryTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97F8432258D5E1900F6B22C /* GFSecondaryTitleLabel.swift */; };
@@ -48,6 +49,7 @@
 		B91ECDF82582BEB5006775E1 /* GFAvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFAvatarImageView.swift; sourceTree = "<group>"; };
 		B9432158258FBC5F00494CAB /* UIViewController+presentSafariVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+presentSafariVC.swift"; sourceTree = "<group>"; };
 		B943215B258FC9F800494CAB /* Followable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Followable.swift; sourceTree = "<group>"; };
+		B943215E25904C5B00494CAB /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		B962FCFC25815879001C21A5 /* GFError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFError.swift; sourceTree = "<group>"; };
 		B97F842E258D5D7F00F6B22C /* UserInfoHeaderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeaderVC.swift; sourceTree = "<group>"; };
 		B97F8432258D5E1900F6B22C /* GFSecondaryTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFSecondaryTitleLabel.swift; sourceTree = "<group>"; };
@@ -100,14 +102,6 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		B962FCFB2581584E001C21A5 /* Localizations */ = {
-			isa = PBXGroup;
-			children = (
-				B962FCFC25815879001C21A5 /* GFError.swift */,
-			);
-			path = Localizations;
-			sourceTree = "<group>";
-		};
 		B965F10E257EE274008CB929 /* Followers */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				B9C89FBE257F185400901130 /* NetworkManager.swift */,
+				B943215E25904C5B00494CAB /* PersistenceManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -178,6 +173,7 @@
 				B9DAF432257E76EF00656075 /* GFBodyLabel.swift */,
 				B9DAF420257BBEAF00656075 /* GFButton.swift */,
 				B9DEE7B02589A8B50054DFAA /* GFEmptyStateView.swift */,
+				B962FCFC25815879001C21A5 /* GFError.swift */,
 				B999A40D258DB656006FE145 /* GFProfileItemView.swift */,
 				B97F8432258D5E1900F6B22C /* GFSecondaryTitleLabel.swift */,
 				B9DAF423257BC16A00656075 /* GFTextField.swift */,
@@ -228,7 +224,6 @@
 				B9F87FA5256E2A3B004177D3 /* SceneDelegate.swift */,
 				B9E4FD5B2573BBAD0033F7FE /* Classes */,
 				B9DAF43A257E831800656075 /* Extensions */,
-				B962FCFB2581584E001C21A5 /* Localizations */,
 				B9879B65257EDAE30096791F /* Models */,
 				B91ECDF72582BE12006775E1 /* Protocols */,
 				B9879B64257EDA890096791F /* Services */,
@@ -324,6 +319,7 @@
 				B91ECDF22582BC59006775E1 /* FollowerCell.swift in Sources */,
 				B9DAF437257E77B100656075 /* GFAlertVC.swift in Sources */,
 				B97F8433258D5E1900F6B22C /* GFSecondaryTitleLabel.swift in Sources */,
+				B943215F25904C5B00494CAB /* PersistenceManager.swift in Sources */,
 				B9879B67257EDC060096791F /* Follower.swift in Sources */,
 				B9F87FA6256E2A3B004177D3 /* SceneDelegate.swift in Sources */,
 				B943215C258FC9F800494CAB /* Followable.swift in Sources */,
