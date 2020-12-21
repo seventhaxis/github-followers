@@ -15,5 +15,5 @@ enum GFError: String, Error {
     case unableToDecodeData = "Unable to decode data received from server. Please try again."
     case unableToAddFavorite = "There was an error adding user to favorites. Please try again."
     case unableToSaveFavorites = "There was an error saving your favorite users. Please try again."
-    case favoriteAlreadyExists = "You've already added this user to your favorites. You must really like them!"
+    case favoriteAlreadyExists = "You've already added this user to your favorites. You must really like 'em! 😜"
 }

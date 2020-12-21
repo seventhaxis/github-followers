@@ -152,7 +152,27 @@ private extension FollowerListVC {
     }
     
     @objc func favoriteButtonTapped() {
-        print("Adding \(targetUser) as a favorite search term...")
+        showLoadingView()
+        
+        NetworkManager.shared.getUserInfo(for: targetUser) { [weak self] result in
+            self?.dismissLoadingView()
+            
+            switch result {
+            case .success(let user):
+                let favoriteUser = Follower(username: user.username, avatarURL: user.avatarURL)
+                PersistenceManager.updateWith(favorite: favoriteUser, actionType: .add) { error in
+                    guard let error = error else {
+                        self?.presentGFAlert(title: "Hooray", message: "You've added \(user.username) to your favorites! 🎉", buttonTitle: "Awesome")
+                        return
+                    }
+                    self?.presentGFAlert(title: "Uh Oh", message: error.rawValue, buttonTitle: "OK")
+                }
+                break
+                
+            case .failure(let error):
+                self?.presentGFAlert(title: "Uh Oh", message: error.rawValue, buttonTitle: "OK")
+            }
+        }
     }
 }
 

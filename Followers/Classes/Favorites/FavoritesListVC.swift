@@ -15,6 +15,15 @@ final class FavoritesListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        PersistenceManager.retrieveFavorites { result in
+            switch result {
+            case .success(let favorites):
+                favorites.forEach { print($0.username) }
+                
+            case .failure(_):
+                break
+            }
+        }
     }
 
     private func setupView() {
