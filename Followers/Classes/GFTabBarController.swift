@@ -1,13 +1,13 @@
 //
-//  GFAppTabs.swift
+//  GFTabBarController.swift
 //  Followers
 //
-//  Created by Matt Brown on 11/29/20.
+//  Created by Matt Brown on 12/21/20.
 //
 
 import UIKit
 
-enum GFAppTabs: String {
+private enum GFAppTabs: String {
     case search = "Search"
     case favorites = "Favorites"
     
@@ -34,5 +34,21 @@ enum GFAppTabs: String {
         rootViewController.title = self.rawValue
         rootViewController.tabBarItem = self.tabBarItem
         return UINavigationController(rootViewController: rootViewController)
+    }
+}
+
+final class GFTabBarController: UITabBarController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+    }
+    
+    private func setupView() {
+        UITabBar.appearance().tintColor = .systemGreen
+        
+        let searchNavCon = GFAppTabs.search.navigationController
+        let favoritesNavCon = GFAppTabs.favorites.navigationController
+        viewControllers = [searchNavCon, favoritesNavCon]
     }
 }

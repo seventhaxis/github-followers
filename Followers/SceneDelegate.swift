@@ -16,18 +16,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
         
-        let searchNavCon = GFAppTabs.search.navigationController
-        let favoritesNavCon = GFAppTabs.favorites.navigationController
-        
-        let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [searchNavCon, favoritesNavCon]
-        
-        UITabBar.appearance().tintColor = .systemGreen
         UINavigationBar.appearance().tintColor = .systemGreen
         
         window = UIWindow(frame: scene.coordinateSpace.bounds)
         window?.windowScene = scene
-        window?.rootViewController = tabBarController
+        window?.rootViewController = GFTabBarController()
         window?.makeKeyAndVisible()
     }
 
