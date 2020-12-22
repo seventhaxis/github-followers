@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class FollowerListVC: UIViewController {
+final class FollowerListVC: GFDataLoadingVC {
     private enum ViewMetrics {
         static let bgColor = UIColor.systemBackground
         

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class UserInfoVC: UIViewController {
+final class UserInfoVC: GFDataLoadingVC {
     private enum ViewMetrics {
         static let backgroundColor = UIColor.systemBackground
         
@@ -89,8 +89,7 @@ final class UserInfoVC: UIViewController {
         socialCard.delegate = self
         add(childViewController: socialCard, to: userDetailBox2)
         
-        guard let creationDate = user.createdAt.convertedToDate else { return }
-        let profileCreationDate = creationDate.convertToString(format: "MMM yyyy")
+        let profileCreationDate = user.createdAt.convertToString(format: "MMM yyyy")
         dateLabel.text = "Member since \(profileCreationDate)"
     }
 }

@@ -18,7 +18,7 @@ struct User {
     let profileURL: String
     let following: Int
     let followers: Int
-    let createdAt: String
+    let createdAt: Date
 }
 
 extension User: Codable {
@@ -48,6 +48,6 @@ extension User: Codable {
         profileURL = try rawValues.decode(String.self, forKey: .profileURL)
         following = try rawValues.decode(Int.self, forKey: .following)
         followers = try rawValues.decode(Int.self, forKey: .followers)
-        createdAt = try rawValues.decode(String.self, forKey: .createdAt)
+        createdAt = try rawValues.decode(Date.self, forKey: .createdAt)
     }
 }

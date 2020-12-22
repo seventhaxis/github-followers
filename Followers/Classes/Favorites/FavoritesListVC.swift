@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class FavoritesListVC: UIViewController {
+final class FavoritesListVC: GFDataLoadingVC {
     private enum ViewMetrics {
         static let backgroundColor = UIColor.systemBackground
         static let tableViewRowHeight: CGFloat = 80.0

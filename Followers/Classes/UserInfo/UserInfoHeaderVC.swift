@@ -21,11 +21,7 @@ final class UserInfoHeaderVC: UIViewController {
     
     private var targetUser: User
     
-    private lazy var avatarImageView: GFAvatarImageView = {
-        let iv = GFAvatarImageView(frame: .zero)
-        iv.downloadAvatar(from: targetUser.avatarURL)
-        return iv
-    }()
+    private let avatarImageView = GFAvatarImageView(frame: .zero)
     
     private lazy var usernameLabel: GFTitleLabel = {
         let label = GFTitleLabel(textAlignment: .left, fontSize: ViewMetrics.usernameFontSize)
@@ -103,5 +99,12 @@ final class UserInfoHeaderVC: UIViewController {
             bioLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             bioLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
         ])
+        
+        NetworkManager.shared.downloadImage(from: targetUser.avatarURL) { (image) in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.avatarImageView.image = image
+            }
+        }
     }
 }
