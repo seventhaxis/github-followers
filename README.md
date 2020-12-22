@@ -17,10 +17,7 @@
 
 ---
 
+- **Course Homepage:** [Sean Allen - Take Home Project](https://seanallen.teachable.com/p/take-home) (via [Teachable.com](https://teachable.com))
 - [SemanticUI](https://github.com/cocoacontrols/SemanticUI): visualize all of iOS 13's semantic and adaptable colors, text styles, and built-in icons
 - [Swift API Design Guidelines](https://swift.org/documentation/api-design-guidelines/)
 - Human Interface Guidelines: [Modality](https://developer.apple.com/design/human-interface-guidelines/ios/app-architecture/modality/)
-
-## Retrospective
-- Throughout the course, the instructor relied on padding constants in constraints instead of setting a view's layout margins or directional insets. I feel this made for some unnecessarily complex or sloppy code.
-- Additionally, the instructor manually set the height of elements that include an intrinsic size (e.g. `UILabel`). In my opinion, it would be better to rely on that intrinsic value to adjust for user text size preferences.
