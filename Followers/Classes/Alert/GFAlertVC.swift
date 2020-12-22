@@ -9,17 +9,9 @@ import UIKit
 
 final class GFAlertVC: UIViewController {
     private enum ViewMetrics {
-        static let transparentBackgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.75)
+        static let transparentBackgroundColor = UIColor.black.withAlphaComponent(0.75)
         static let buttonBackgroundColor = UIColor.systemPink
-        
-        static let containerLayoutMargins = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
-        static let containerBackgroundColor = UIColor.systemBackground
-        static let containerCornerRadius: CGFloat = 16.0
-        static let containerBorderWidth: CGFloat = 2.0
-        static let containerBorderColor = UIColor.white.cgColor
-        static let containerWidth: CGFloat = 280.0
-        static let containerHeight: CGFloat = 220.0
-        
+        static let alertContainerWidth: CGFloat = 280.0
         static let actionButtonHeight: CGFloat = 44.0
     }
     
@@ -32,19 +24,7 @@ final class GFAlertVC: UIViewController {
     }()
     
     private let actionButton: GFButton!
-    
-    private let containerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layoutMargins = ViewMetrics.containerLayoutMargins
-        view.backgroundColor = ViewMetrics.containerBackgroundColor
-        
-        view.layer.cornerRadius = ViewMetrics.containerCornerRadius
-        view.layer.borderWidth = ViewMetrics.containerBorderWidth
-        view.layer.borderColor = ViewMetrics.containerBorderColor
-        
-        return view
-    }()
+    private let containerView = GFAlertContainerView()
     
     init(title: String, message: String, buttonTitle: String) {
         self.actionButton = GFButton(bgColor: ViewMetrics.buttonBackgroundColor, title: buttonTitle)
@@ -73,8 +53,7 @@ final class GFAlertVC: UIViewController {
         NSLayoutConstraint.activate([
             containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            containerView.widthAnchor.constraint(equalToConstant: ViewMetrics.containerWidth),
-//            containerView.heightAnchor.constraint(equalToConstant: ViewMetrics.containerHeight),
+            containerView.widthAnchor.constraint(equalToConstant: ViewMetrics.alertContainerWidth),
             
             titleLabel.topAnchor.constraint(equalTo: containerView.layoutMarginsGuide.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.leadingAnchor),
