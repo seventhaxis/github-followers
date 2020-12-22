@@ -15,6 +15,8 @@
 		B943215F25904C5B00494CAB /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B943215E25904C5B00494CAB /* PersistenceManager.swift */; };
 		B94321642590580100494CAB /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94321632590580100494CAB /* FavoriteCell.swift */; };
 		B962FCFD25815879001C21A5 /* GFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B962FCFC25815879001C21A5 /* GFError.swift */; };
+		B97618D32591A830006D7588 /* DeviceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97618D22591A830006D7588 /* DeviceType.swift */; };
+		B97618D62591AB08006D7588 /* GFResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97618D52591AB08006D7588 /* GFResource.swift */; };
 		B97F842F258D5D7F00F6B22C /* UserInfoHeaderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97F842E258D5D7F00F6B22C /* UserInfoHeaderVC.swift */; };
 		B97F8433258D5E1900F6B22C /* GFSecondaryTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97F8432258D5E1900F6B22C /* GFSecondaryTitleLabel.swift */; };
 		B9879B67257EDC060096791F /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9879B66257EDC060096791F /* Follower.swift */; };
@@ -53,6 +55,8 @@
 		B943215E25904C5B00494CAB /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		B94321632590580100494CAB /* FavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
 		B962FCFC25815879001C21A5 /* GFError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFError.swift; sourceTree = "<group>"; };
+		B97618D22591A830006D7588 /* DeviceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceType.swift; sourceTree = "<group>"; };
+		B97618D52591AB08006D7588 /* GFResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFResource.swift; sourceTree = "<group>"; };
 		B97F842E258D5D7F00F6B22C /* UserInfoHeaderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeaderVC.swift; sourceTree = "<group>"; };
 		B97F8432258D5E1900F6B22C /* GFSecondaryTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFSecondaryTitleLabel.swift; sourceTree = "<group>"; };
 		B9879B66257EDC060096791F /* Follower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
@@ -111,6 +115,15 @@
 				B91ECDF12582BC59006775E1 /* FollowerCell.swift */,
 			);
 			path = Followers;
+			sourceTree = "<group>";
+		};
+		B97618D12591A81B006D7588 /* Miscellaneous */ = {
+			isa = PBXGroup;
+			children = (
+				B97618D22591A830006D7588 /* DeviceType.swift */,
+				B97618D52591AB08006D7588 /* GFResource.swift */,
+			);
+			path = Miscellaneous;
 			sourceTree = "<group>";
 		};
 		B9879B64257EDA890096791F /* Services */ = {
@@ -227,6 +240,7 @@
 				B9F87FA5256E2A3B004177D3 /* SceneDelegate.swift */,
 				B9E4FD5B2573BBAD0033F7FE /* Classes */,
 				B9DAF43A257E831800656075 /* Extensions */,
+				B97618D12591A81B006D7588 /* Miscellaneous */,
 				B9879B65257EDAE30096791F /* Models */,
 				B91ECDF72582BE12006775E1 /* Protocols */,
 				B9879B64257EDA890096791F /* Services */,
@@ -310,8 +324,10 @@
 				B9E4FD662573C1FC0033F7FE /* GFAppTabs.swift in Sources */,
 				B9DAF43C257E834800656075 /* UIViewController+GFAlertVC.swift in Sources */,
 				B97F842F258D5D7F00F6B22C /* UserInfoHeaderVC.swift in Sources */,
+				B97618D32591A830006D7588 /* DeviceType.swift in Sources */,
 				B9DAF421257BBEAF00656075 /* GFButton.swift in Sources */,
 				B9DEE7AC2589A1CF0054DFAA /* UIViewController+LoadingView.swift in Sources */,
+				B97618D62591AB08006D7588 /* GFResource.swift in Sources */,
 				B999A41A258E8E4A006FE145 /* String+DateConversion.swift in Sources */,
 				B9F87FA4256E2A3B004177D3 /* AppDelegate.swift in Sources */,
 				B9432159258FBC5F00494CAB /* UIViewController+presentSafariVC.swift in Sources */,

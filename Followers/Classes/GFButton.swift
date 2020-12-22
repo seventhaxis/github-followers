@@ -11,7 +11,7 @@ final class GFButton: UIButton {
     private enum ViewMetrics {
         static let textColor = UIColor.white
         static let preferredFont = UIFont.preferredFont(forTextStyle: .headline)
-        
+        static let contentEdgeInsets = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
         static let cornerRadius: CGFloat = 10.0
     }
 
@@ -33,6 +33,7 @@ final class GFButton: UIButton {
         setTitleColor(ViewMetrics.textColor, for: .normal)
         titleLabel?.font = ViewMetrics.preferredFont
         
+        contentEdgeInsets = ViewMetrics.contentEdgeInsets
         layer.cornerRadius = ViewMetrics.cornerRadius
     }
 }

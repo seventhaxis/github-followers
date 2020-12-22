@@ -10,54 +10,64 @@ import UIKit
 final class SearchVC: UIViewController {
     private enum ViewMetrics {
         static let backgroundColor = UIColor.systemBackground
+        static let directionalMargins = NSDirectionalEdgeInsets(top: 0, leading: 50, bottom: 0, trailing: 50)
+        
+        static let logoWidth: CGFloat = 200.0
+        static let usernameTextFieldHeight: CGFloat = 44.0
+        
+        static let smallTopPadding: CGFloat = 20.0
+        static let normalTopPadding: CGFloat = 80.0
     }
     
-    let logoImageView: UIImageView = {
+    private let logoImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.image = UIImage(named: "gh-logo")
+        view.image = GFResource.Image.ghLogo
         view.contentMode = .scaleAspectFit
         return view
     }()
     
-    let usernameTextField = GFTextField(type: .userSearch)
-    let searchButton = GFButton(bgColor: .systemGreen, title: "Search")
+    private let usernameTextField = GFTextField(type: .userSearch)
+    private let searchButton = GFButton(bgColor: .systemGreen, title: "Search")
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         
-        let tapToDismiss = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        let tapToDismiss = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tapToDismiss)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
+        usernameTextField.text = ""
     }
     
     private func setupView() {
+        view.directionalLayoutMargins = ViewMetrics.directionalMargins
         view.backgroundColor = ViewMetrics.backgroundColor
         
         usernameTextField.delegate = self
         searchButton.addTarget(self, action: #selector(tapSearchButton), for: .touchUpInside)
         
+        let topPaddingConstant = (DeviceType.isiPhoneSE || DeviceType.isiPhone8Zoomed) ? ViewMetrics.smallTopPadding : ViewMetrics.normalTopPadding
+        
         [logoImageView, usernameTextField, searchButton].forEach { view.addSubview($0) }
         NSLayoutConstraint.activate([
-            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80.0),
+            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topPaddingConstant),
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logoImageView.heightAnchor.constraint(equalToConstant: 200.0),
-            logoImageView.widthAnchor.constraint(equalTo: logoImageView.heightAnchor),
+            logoImageView.widthAnchor.constraint(equalToConstant: ViewMetrics.logoWidth),
+            logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor),
             
             usernameTextField.topAnchor.constraint(equalToSystemSpacingBelow: logoImageView.bottomAnchor, multiplier: 5.0), 
-            usernameTextField.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 50.0),
-            view.layoutMarginsGuide.trailingAnchor.constraint(equalTo: usernameTextField.trailingAnchor, constant: 50.0),
-            usernameTextField.heightAnchor.constraint(equalToConstant: 44.0),
+            usernameTextField.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            usernameTextField.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            usernameTextField.heightAnchor.constraint(equalToConstant: ViewMetrics.usernameTextFieldHeight),
             
             searchButton.topAnchor.constraint(equalToSystemSpacingBelow: usernameTextField.bottomAnchor, multiplier: 2.0),
-            searchButton.leadingAnchor.constraint(equalTo: usernameTextField.leadingAnchor),
-            searchButton.trailingAnchor.constraint(equalTo: usernameTextField.trailingAnchor),
-            searchButton.heightAnchor.constraint(equalToConstant: 44.0),
+            searchButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            searchButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
         ])
     }
 }
@@ -69,6 +79,7 @@ private extension SearchVC {
             return
         }
         
+        usernameTextField.resignFirstResponder()
         let followersVC = FollowerListVC(user: userEntry)
         navigationController?.pushViewController(followersVC, animated: true)
     }
@@ -81,6 +92,7 @@ extension SearchVC: UITextFieldDelegate {
             return false
         }
         
+        usernameTextField.resignFirstResponder()
         let followersVC = FollowerListVC(user: userEntry)
         navigationController?.pushViewController(followersVC, animated: true)
         return true

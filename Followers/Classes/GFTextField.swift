@@ -58,6 +58,7 @@ final class GFTextField: UITextField {
         autocorrectionType = .no
         autocapitalizationType = .none
         returnKeyType = type.returnKeyType
+        clearButtonMode = .whileEditing
         
         backgroundColor = ViewMetrics.backgroundColor
         
@@ -65,7 +66,6 @@ final class GFTextField: UITextField {
         tintColor = ViewMetrics.tintColor
         textAlignment = ViewMetrics.textAlignment
         font = ViewMetrics.font
-        
         adjustsFontSizeToFitWidth = true
         minimumFontSize = ViewMetrics.minimumFontSize
         
