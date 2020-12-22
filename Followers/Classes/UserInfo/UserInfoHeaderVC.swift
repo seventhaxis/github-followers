@@ -35,7 +35,7 @@ final class UserInfoHeaderVC: UIViewController {
     }()
     
     private lazy var locationImageView: UIImageView = {
-        let iv = UIImageView(image: UIImage(systemName: "mappin.and.ellipse"))
+        let iv = UIImageView(image: GFResource.Image.SFSymbol.mapPinAndEllipse)
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.tintColor = .secondaryLabel
         return iv

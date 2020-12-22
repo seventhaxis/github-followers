@@ -30,6 +30,7 @@ final class FollowerListVC: GFDataLoadingVC {
             followers.removeAll()
             filteredFollowers.removeAll()
             
+            collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
             updateFollowers(with: followers)
             fetchFollowers(page: currentPage)
         }
@@ -41,6 +42,7 @@ final class FollowerListVC: GFDataLoadingVC {
     private var currentPage = 1
     private var hasMoreFollowers = true
     private var isFiltered = false
+    private var isFetchingData = false
     
     private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
@@ -78,7 +80,7 @@ final class FollowerListVC: GFDataLoadingVC {
         navigationItem.title = targetUser
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        let favoriteIcon = UIImage(systemName: "star")
+        let favoriteIcon = GFResource.Image.SFSymbol.star
         let favoriteButton = UIBarButtonItem(image: favoriteIcon, style: .plain, target: self, action: #selector(favoriteButtonTapped))
         navigationItem.rightBarButtonItem = favoriteButton
         
@@ -86,7 +88,6 @@ final class FollowerListVC: GFDataLoadingVC {
         
         searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
-        searchController.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = false
         
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: threeColumnFlowLayout())
@@ -105,6 +106,7 @@ final class FollowerListVC: GFDataLoadingVC {
 
 private extension FollowerListVC {
     func fetchFollowers(page: Int) {
+        isFetchingData = true
         showLoadingView()
         NetworkManager.shared.getFollowers(for: targetUser, page: page) { [weak self] (result) in
             guard let self = self else { return }
@@ -126,6 +128,8 @@ private extension FollowerListVC {
             case .failure(let error):
                 self.presentGFAlert(title: "Uh Oh", message: error.rawValue, buttonTitle: "OK")
             }
+            
+            self.isFetchingData = false
         }
     }
     
@@ -190,6 +194,7 @@ extension FollowerListVC: UICollectionViewDelegate {
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard !isFetchingData else { return }
         let yOffset = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         let screenHeight = scrollView.frame.size.height
@@ -201,17 +206,18 @@ extension FollowerListVC: UICollectionViewDelegate {
     }
 }
 
-extension FollowerListVC: UISearchResultsUpdating, UISearchBarDelegate {
+extension FollowerListVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let userEntry = searchController.searchBar.text, !userEntry.isEmpty else { return }
+        guard let userEntry = searchController.searchBar.text, !userEntry.isEmpty else {
+            filteredFollowers.removeAll()
+            updateFollowers(with: followers)
+            isFiltered = false
+            return
+        }
+        
         filteredFollowers = followers.filter { $0.username.lowercased().contains(userEntry.lowercased()) }
         updateFollowers(with: filteredFollowers)
         isFiltered = true
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        updateFollowers(with: followers)
-        isFiltered = false
     }
 }
 

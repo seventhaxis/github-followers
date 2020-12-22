@@ -20,13 +20,13 @@ enum GFProfileItem: String {
     var iconImage: UIImage? {
         switch self {
         case .followers:
-            return UIImage(systemName: "person.2")
+            return GFResource.Image.SFSymbol.person2
         case .following:
-            return UIImage(systemName: "heart")
+            return GFResource.Image.SFSymbol.heart
         case .publicGists:
-            return UIImage(systemName: "text.alignleft")
+            return GFResource.Image.SFSymbol.textAlignLeft
         case .publicRepos:
-            return UIImage(systemName: "folder")
+            return GFResource.Image.SFSymbol.folder
         }
     }
 }

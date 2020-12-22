@@ -12,7 +12,7 @@ final class GFAvatarImageView: UIImageView {
         static let cornerRadius: CGFloat = 10.0
     }
     
-    let placeholderImage = UIImage(named: "avatar-placeholder")!
+    let placeholderImage = GFResource.Image.avatarPlaceholder
     let avatarCache = NetworkManager.shared.cache
 
     override init(frame: CGRect) {

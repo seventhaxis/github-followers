@@ -18,7 +18,7 @@ final class GFEmptyStateView: UIView {
         
         static let messageLabelFontSize: CGFloat = 28.0
         static let messageLabelTextColor = UIColor.secondaryLabel
-        static let messageLabelOffset: CGFloat = -150.0
+        static let messageLabelOffset: CGFloat = -50.0
     }
     
     private let messageLabel: GFTitleLabel = {
@@ -29,7 +29,7 @@ final class GFEmptyStateView: UIView {
     }()
     
     private let logoImageView: UIImageView = {
-        let logo = UIImage(named: "empty-state-logo")
+        let logo = GFResource.Image.emptyStateLogo
         let view = UIImageView(image: logo)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -51,14 +51,14 @@ final class GFEmptyStateView: UIView {
         
         [logoImageView, messageLabel].forEach { addSubview($0) }
         NSLayoutConstraint.activate([
+            messageLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+            messageLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            messageLabel.centerYAnchor.constraint(equalTo: layoutMarginsGuide.centerYAnchor, constant: ViewMetrics.messageLabelOffset),
+            
             logoImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: ViewMetrics.logoImageWidthMultiplier),
             logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor),
             logoImageView.rightAnchor.constraint(equalTo: rightAnchor, constant: ViewMetrics.logoImageHorizontalOffset),
             logoImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: ViewMetrics.logoImageVerticalOffset),
-            
-            messageLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            messageLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-            messageLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: ViewMetrics.messageLabelOffset),
         ])
     }
 
