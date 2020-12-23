@@ -66,6 +66,7 @@ final class GFTextField: UITextField {
         tintColor = ViewMetrics.tintColor
         textAlignment = ViewMetrics.textAlignment
         font = ViewMetrics.font
+        adjustsFontForContentSizeCategory = true
         adjustsFontSizeToFitWidth = true
         minimumFontSize = ViewMetrics.minimumFontSize
         

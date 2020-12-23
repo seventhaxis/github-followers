@@ -32,6 +32,7 @@ final class GFButton: UIButton {
         
         setTitleColor(ViewMetrics.textColor, for: .normal)
         titleLabel?.font = ViewMetrics.preferredFont
+        titleLabel?.adjustsFontForContentSizeCategory = true
         
         contentEdgeInsets = ViewMetrics.contentEdgeInsets
         layer.cornerRadius = ViewMetrics.cornerRadius
