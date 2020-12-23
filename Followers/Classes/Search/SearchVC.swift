@@ -53,7 +53,7 @@ final class SearchVC: UIViewController {
         
         let topPaddingConstant = (DeviceType.isiPhoneSE || DeviceType.isiPhone8Zoomed) ? ViewMetrics.smallTopPadding : ViewMetrics.normalTopPadding
         
-        [logoImageView, usernameTextField, searchButton].forEach { view.addSubview($0) }
+        view.addSubviews(logoImageView, usernameTextField, searchButton)
         NSLayoutConstraint.activate([
             logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topPaddingConstant),
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),

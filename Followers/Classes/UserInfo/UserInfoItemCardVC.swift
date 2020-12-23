@@ -115,7 +115,7 @@ final class UserInfoItemCardVC: UIViewController {
         view.directionalLayoutMargins = ViewMetrics.directionalMargins
         view.layer.cornerRadius = ViewMetrics.cornerRadius
         
-        [detailStackView, actionButton].forEach { view.addSubview($0) }
+        view.addSubviews(detailStackView, actionButton)
         NSLayoutConstraint.activate([
             detailStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             detailStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),

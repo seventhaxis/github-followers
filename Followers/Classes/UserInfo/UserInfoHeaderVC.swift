@@ -71,7 +71,7 @@ final class UserInfoHeaderVC: UIViewController {
     private func setupView() {
         view.layoutMargins = ViewMetrics.edgeInsets
         
-        [avatarImageView, usernameLabel, nameLabel, locationImageView, locationLabel, bioLabel].forEach { view.addSubview($0) }
+        view.addSubviews(avatarImageView, usernameLabel, nameLabel, locationImageView, locationLabel, bioLabel)
         NSLayoutConstraint.activate([
             avatarImageView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             avatarImageView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),

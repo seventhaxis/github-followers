@@ -72,8 +72,7 @@ final class GFProfileItemView: UIView {
     }
     
     private func setupView() {
-        
-        [symbolImageView, titleLabel, itemCountLabel].forEach { addSubview($0) }
+        addSubviews(symbolImageView, titleLabel, itemCountLabel)
         NSLayoutConstraint.activate([
             symbolImageView.topAnchor.constraint(equalTo: topAnchor),
             symbolImageView.leadingAnchor.constraint(equalTo: leadingAnchor),

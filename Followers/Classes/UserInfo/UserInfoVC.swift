@@ -56,7 +56,7 @@ final class UserInfoVC: GFDataLoadingVC {
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
         navigationItem.rightBarButtonItem = doneButton
         
-        [headerView, userDetailBox1, userDetailBox2, dateLabel].forEach { view.addSubview($0) }
+        view.addSubviews(headerView, userDetailBox1, userDetailBox2, dateLabel)
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             headerView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),

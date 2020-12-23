@@ -94,7 +94,7 @@ final class FollowerListVC: GFDataLoadingVC {
         collectionView.delegate = self
         collectionView.backgroundColor = ViewMetrics.collectionViewBackgroundColor
         collectionView.register(FollowerCell.self, forCellWithReuseIdentifier: FollowerCell.reuseIdentifier)
-        [collectionView].forEach { view.addSubview($0) }
+        view.addSubviews(collectionView)
         
         dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell? in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCell.reuseIdentifier, for: indexPath) as? FollowerCell else { fatalError() }

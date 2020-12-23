@@ -31,7 +31,7 @@ final class FavoriteCell: UITableViewCell, ReusableIdentifier {
         accessoryType = .disclosureIndicator
         contentView.directionalLayoutMargins = ViewMetrics.directionalMargins
         
-        [avatarImageView, usernameLabel].forEach { contentView.addSubview($0) }
+        contentView.addSubviews(avatarImageView, usernameLabel)
         NSLayoutConstraint.activate([
             avatarImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             avatarImageView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),

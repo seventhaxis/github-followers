@@ -28,7 +28,7 @@ final class FollowerCell: UICollectionViewCell, ReusableIdentifier {
     private func setupView() {
         contentView.directionalLayoutMargins = ViewMetrics.directionalMargins
         
-        [avatarImageView, usernameLabel].forEach { contentView.addSubview($0) }
+        contentView.addSubviews(avatarImageView, usernameLabel)
         NSLayoutConstraint.activate([
             avatarImageView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
             avatarImageView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),

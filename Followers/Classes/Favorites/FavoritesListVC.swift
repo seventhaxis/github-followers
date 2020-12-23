@@ -38,7 +38,7 @@ final class FavoritesListVC: GFDataLoadingVC {
         tableView.dataSource = self
         tableView.register(FavoriteCell.self, forCellReuseIdentifier: FavoriteCell.reuseIdentifier)
         
-        [tableView].forEach { view.addSubview($0) }
+        view.addSubviews(tableView)
     }
     
     private func fetchFavorites() {

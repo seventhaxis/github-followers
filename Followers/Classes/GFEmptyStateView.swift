@@ -49,7 +49,7 @@ final class GFEmptyStateView: UIView {
         backgroundColor = ViewMetrics.bgColor
         directionalLayoutMargins = ViewMetrics.directionalLayoutMargins
         
-        [logoImageView, messageLabel].forEach { addSubview($0) }
+        addSubviews(logoImageView, messageLabel)
         NSLayoutConstraint.activate([
             messageLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             messageLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),

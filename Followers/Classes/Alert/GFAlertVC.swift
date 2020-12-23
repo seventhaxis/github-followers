@@ -47,8 +47,8 @@ final class GFAlertVC: UIViewController {
     private func setupView() {
         view.backgroundColor = ViewMetrics.transparentBackgroundColor
         
-        [containerView].forEach { view.addSubview($0) }
-        [titleLabel, messageLabel, actionButton].forEach { containerView.addSubview($0) }
+        view.addSubviews(containerView)
+        containerView.addSubviews(titleLabel, messageLabel, actionButton)
         
         NSLayoutConstraint.activate([
             containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
