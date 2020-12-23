@@ -221,7 +221,7 @@ extension FollowerListVC: UISearchResultsUpdating {
     }
 }
 
-extension FollowerListVC: Followable {
+extension FollowerListVC: FollowersFetchable {
     func didRequestFollowers(for username: String) {
         targetUser = username
     }

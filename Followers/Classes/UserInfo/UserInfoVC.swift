@@ -17,7 +17,7 @@ final class UserInfoVC: GFDataLoadingVC {
     }
     
     private let targetUsername: String
-    weak var followableDelegate: Followable?
+    weak var followableDelegate: FollowersFetchable?
     
     private let headerView = UIView.containerView()
     private let userDetailBox1 = UIView.containerView()
