@@ -24,6 +24,18 @@ final class UserInfoVC: GFDataLoadingVC {
     private let userDetailBox2 = UIView.containerView()
     private let dateLabel = GFBodyLabel(textAlignment: .center)
     
+    private let contentContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     init(for follower: Follower) {
         self.targetUsername = follower.username
         super.init(nibName: nil, bundle: nil)
@@ -56,24 +68,38 @@ final class UserInfoVC: GFDataLoadingVC {
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
         navigationItem.rightBarButtonItem = doneButton
         
-        view.addSubviews(headerView, userDetailBox1, userDetailBox2, dateLabel)
+        view.addSubviews(scrollView)
+        scrollView.addSubviews(contentContainer)
+        contentContainer.addSubviews(headerView, userDetailBox1, userDetailBox2, dateLabel)
         NSLayoutConstraint.activate([
-            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            headerView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.frameLayoutGuide.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
+            
+            contentContainer.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            contentContainer.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            contentContainer.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            contentContainer.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            contentContainer.heightAnchor.constraint(equalToConstant: 600),
+            
+            headerView.topAnchor.constraint(equalTo: contentContainer.layoutMarginsGuide.topAnchor),
+            headerView.leadingAnchor.constraint(equalTo: contentContainer.layoutMarginsGuide.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: contentContainer.layoutMarginsGuide.trailingAnchor),
             headerView.heightAnchor.constraint(lessThanOrEqualToConstant: ViewMetrics.headerViewHeight),
             
             userDetailBox1.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: ViewMetrics.interItemPadding),
-            userDetailBox1.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            userDetailBox1.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            userDetailBox1.leadingAnchor.constraint(equalTo: contentContainer.layoutMarginsGuide.leadingAnchor),
+            userDetailBox1.trailingAnchor.constraint(equalTo: contentContainer.layoutMarginsGuide.trailingAnchor),
             userDetailBox1.heightAnchor.constraint(equalToConstant: ViewMetrics.detailBoxHeight),
             
             userDetailBox2.topAnchor.constraint(equalTo: userDetailBox1.bottomAnchor, constant: ViewMetrics.interItemPadding),
-            userDetailBox2.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            userDetailBox2.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            userDetailBox2.leadingAnchor.constraint(equalTo: contentContainer.layoutMarginsGuide.leadingAnchor),
+            userDetailBox2.trailingAnchor.constraint(equalTo: contentContainer.layoutMarginsGuide.trailingAnchor),
             userDetailBox2.heightAnchor.constraint(equalToConstant: ViewMetrics.detailBoxHeight),
             
-            dateLabel.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
+            dateLabel.centerXAnchor.constraint(equalTo: contentContainer.layoutMarginsGuide.centerXAnchor),
             dateLabel.topAnchor.constraint(equalTo: userDetailBox2.bottomAnchor, constant: ViewMetrics.interItemPadding),
         ])
     }

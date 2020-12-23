@@ -100,6 +100,10 @@ final class UserInfoHeaderVC: UIViewController {
             bioLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
         ])
         
+        if let userLocation = locationLabel.text, userLocation.isEmpty {
+            locationImageView.isHidden = true
+        }
+        
         NetworkManager.shared.downloadImage(from: targetUser.avatarURL) { (image) in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
