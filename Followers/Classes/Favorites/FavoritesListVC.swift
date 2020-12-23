@@ -88,11 +88,15 @@ extension FavoritesListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         let favoriteUser = favorites[indexPath.row]
-        favorites.remove(at: indexPath.row)
-        tableView.deleteRows(at: [indexPath], with: .left)
         
         PersistenceManager.updateWith(favorite: favoriteUser, actionType: .remove) { [weak self] error in
-            guard let self = self, let error = error else { return }
+            guard let self = self else { return }
+            
+            guard let error = error else {
+                self.favorites.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .left)
+                return
+            }
             self.presentGFAlert(title: "Uh Oh", message: error.rawValue, buttonTitle: "OK")
         }
         
