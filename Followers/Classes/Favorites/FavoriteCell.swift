@@ -46,12 +46,6 @@ final class FavoriteCell: UITableViewCell, ReusableIdentifier {
     
     func configure(for favorite: Follower) {
         usernameLabel.text = favorite.username
-        
-        NetworkManager.shared.downloadImage(from: favorite.avatarURL) { (image) in
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.avatarImageView.image = image
-            }
-        }
+        avatarImageView.downloadImage(fromURLString: favorite.avatarURL)
     }
 }

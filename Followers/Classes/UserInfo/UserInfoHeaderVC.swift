@@ -21,7 +21,11 @@ final class UserInfoHeaderVC: UIViewController {
     
     private var targetUser: User
     
-    private let avatarImageView = GFAvatarImageView(frame: .zero)
+    private lazy var avatarImageView: GFAvatarImageView = {
+        let view  = GFAvatarImageView(frame: .zero)
+        view.downloadImage(fromURLString: targetUser.avatarURL)
+        return view
+    }()
     
     private lazy var usernameLabel: GFTitleLabel = {
         let label = GFTitleLabel(textAlignment: .left, fontSize: ViewMetrics.usernameFontSize)
@@ -102,13 +106,6 @@ final class UserInfoHeaderVC: UIViewController {
         
         if let userLocation = locationLabel.text, userLocation.isEmpty {
             locationImageView.isHidden = true
-        }
-        
-        NetworkManager.shared.downloadImage(from: targetUser.avatarURL) { (image) in
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.avatarImageView.image = image
-            }
         }
     }
 }

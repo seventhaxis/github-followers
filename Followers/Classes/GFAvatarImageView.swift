@@ -31,4 +31,12 @@ final class GFAvatarImageView: UIImageView {
         image = placeholderImage
         layer.cornerRadius = ViewMetrics.cornerRadius
     }
+    
+    func downloadImage(fromURLString urlString: String) {
+        NetworkManager.shared.downloadImage(from: urlString) { (image) in
+            DispatchQueue.main.async { [weak self] in
+                self?.image = image
+            }
+        }
+    }
 }

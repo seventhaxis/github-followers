@@ -49,12 +49,6 @@ final class FollowerCell: UICollectionViewCell, ReusableIdentifier {
     
     func configure(for follower: Follower) {
         usernameLabel.text = follower.username
-        
-        NetworkManager.shared.downloadImage(from: follower.avatarURL) { (image) in
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.avatarImageView.image = image
-            }
-        }
+        avatarImageView.downloadImage(fromURLString: follower.avatarURL)
     }
 }
